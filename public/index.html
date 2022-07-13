@@ -36,16 +36,17 @@
 const importObject = {
 	env: {
 		print_string: function(str) {
-			printString(charPtrToString(str));
+			console.log(charPtrToString(str));
 		}
 	}
 };
-		const wasm = await (async (url) => {
+		const calculator = await (async (url) => {
 			const { instance } = await WebAssembly.instantiateStreaming(fetch(url), importObject);
 			return instance;
 		})("calculator.wasm"); 
 	 	document.getElementById("calculator").addEventListener('input', function (evt) {
     			console.log(evt.target.value);
+			console.log(calculator.exports.calculate());
 		});
 	</script>
   </body>

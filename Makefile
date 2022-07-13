@@ -30,6 +30,7 @@ $(OUTPUT): $(OBJ) $(NANOLIBC_OBJ) Makefile
 		$(OBJ) \
 		$(LIBCXX_OBJ) \
 		$(NANOLIBC_OBJ)
+	mv $(OUTPUT) public
 
 
 %.o: %.cpp $(DEPS) Makefile nanolibc/libc.h nanolibc/libc_extra.h
