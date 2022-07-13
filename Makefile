@@ -40,5 +40,8 @@ $(OUTPUT): $(OBJ) $(NANOLIBC_OBJ) Makefile
 		-o $@ \
 		$<
 
+start:
+	firebase serve --only hosting
+
 clean:
 	rm -f $(OBJ) $(NANOLIBC_OBJ) $(OUTPUT)
