@@ -68,3 +68,4 @@ node_modules/
 # Object files
 *.o
 *.wasm
+build/

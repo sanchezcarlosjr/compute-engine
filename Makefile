@@ -43,5 +43,12 @@ $(OUTPUT): $(OBJ) $(NANOLIBC_OBJ) Makefile
 start:
 	firebase serve --only hosting
 
+live_test:
+	when-changed -1 calculator.cpp calculator_test.cc -c "make test"
+
+test:
+	cmake --build build
+	cd build && ctest --rerun-failed --output-on-failure
+
 clean:
 	rm -f $(OBJ) $(NANOLIBC_OBJ) $(OUTPUT)
