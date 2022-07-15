@@ -1,6 +1,7 @@
 {
   "hosting": {
     "public": "public",
+    "site": "calculator-aka-compiler",
     "ignore": [
       "firebase.json",
       "**/.*",
