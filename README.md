@@ -42,5 +42,5 @@ cmake -S . -B build
 2. Why do you compile every time? No, make saves your time. You should have installed [when-changed](https://github.com/joh/when-changed)  
 
 ```
-make live-testing
+make live-test
 ```
