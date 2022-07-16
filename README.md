@@ -33,11 +33,14 @@ Have fun!
 
 # Testing
 Sometimes if you don't want manual testing, you would like [Google Test Framework](https://google.github.io/googletest/quickstart-cmake.html).
+
 1. 
 ```
 cmake -S . -B build
 ```
+
 2. Why do you compile every time? No, make saves your time. You should have installed [when-changed](https://github.com/joh/when-changed)  
+
 ```
 make live-testing
 ```
