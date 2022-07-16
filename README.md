@@ -32,7 +32,7 @@ Have fun!
 ```
 
 # Testing
-Sometimes if you don't want manual testing, you would like [Google Test Framework](https://google.github.io/googletest/quickstart-cmake.html).
+If you don't want manual testing, you would like [Google Test Framework](https://google.github.io/googletest/quickstart-cmake.html).
 
 1. 
 ```
