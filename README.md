@@ -3,7 +3,7 @@ My first compiler (aka calculator) using Programming -- Principles and Practice 
 https://calculator.sanchezcarlosjr.com/
 
 # Prerequisites
-1. Firebase account
+1. Firebase CLI
 2. clang
 3. wasm-ld
 
