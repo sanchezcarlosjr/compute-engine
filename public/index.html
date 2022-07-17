@@ -45,14 +45,16 @@
 			return instance;
 		})("calculator.wasm"); 
                 const encoder = new TextEncoder("utf-8");
-		document.getElementById("calculator").addEventListener('input', function (evt) {
-		        const expression = encoder.encode(evt.target.value + "\x00");
+		function calculate(str) {
+		        const expression = encoder.encode(str + "\x00");
 			const pointer = calculator.exports.allocateMemoryForString(expression.length + 1);
 			const memory = new Uint8Array(calculator.exports.memory.buffer);
 			memory.subarray(pointer).set(expression);
 			document.getElementById("result").innerHTML = calculator.exports.calculate(pointer);
 			calculator.exports.freeMemoryForString(pointer);
-		});
+		}
+		document.getElementById("calculator").addEventListener('input', (evt) => calculate(evt.target.value));
+		calculate(document.getElementById("calculator").value);
 	</script>
   </body>
 </html>
