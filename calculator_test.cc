@@ -22,6 +22,17 @@ TEST(CalculatorTest, ExpressionAssertion) {
   EXPECT_EQ(1, calculate("1!"));
   EXPECT_EQ(1, calculate("0!"));
   EXPECT_EQ(2.718281828459045, calculate("e"));
+  EXPECT_EQ(1, calculate("--1"));
+  EXPECT_EQ(-1, calculate("---1"));
+  EXPECT_EQ(2, calculate("+++1++++1"));
+  EXPECT_EQ(0, calculate("+++1---1"));
+  EXPECT_EQ(4, calculate("--(2+2)"));
+  EXPECT_EQ(-1, calculate("-1/1"));
+  EXPECT_EQ(-1, calculate("1/-1"));
+  EXPECT_EQ(1, calculate("1/(-1+2)"));
+  EXPECT_EQ(-1, calculate("1/(++++1---2)"));
+  EXPECT_EQ(-0.25, calculate("1/-(2+2)"));;
+  EXPECT_EQ(1, calculate("e/e"));;
 }
 
 TEST(CalculatorTest, NumberAssertion) {

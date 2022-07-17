@@ -35,6 +35,7 @@ public:
 				ctoken = new Token('8', number());
 				return *ctoken;
 			case 'e':
+				finiteControl++;
 				ctoken = new Token('8',  2.718281828459045);
 				return *ctoken;
 			default:
@@ -128,6 +129,11 @@ public:
 			}
 			case '8':
 				return token.value;
+			case '-': 
+			{
+				finiteControl++;
+				return -primary();
+			}
 			default:
 				return 0;
 		}
