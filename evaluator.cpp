@@ -9,15 +9,13 @@ public:
 class Evaluator {
 private:
 	int finiteControl = 0;
+	int c = 0;
 	const char* string;
-	Token* ctoken = NULL;
+	Token* token = NULL;
 public:
 	Evaluator(const char* expression): string(expression) {}	
 
-        Token parseToken() {
-		if(ctoken != NULL && ctoken->kind == '\0') {
-			return *ctoken;
-		}
+        void parseToken() {
 		switch(string[finiteControl]) {
 			case '!':
 			case '-': 
@@ -27,20 +25,24 @@ public:
 			case '*': 
 			case '/': 
 			case '%':
-			case '\0':
-				ctoken = new Token(string[finiteControl]);
-				return *ctoken;
+				token = new Token(string[finiteControl]);
+				break;
 			case '.':case '0':case '1': case '2': case '3': case '4':
 			case '5': case '6': case '7': case '8': case '9':
-				ctoken = new Token('8', number());
-				return *ctoken;
+				token = new Token('8', number());
+				break;
 			case 'e':
 				finiteControl++;
-				ctoken = new Token('8',  2.718281828459045);
-				return *ctoken;
+				token = new Token('8',  2.718281828459045);
+				break;
 			default:
-				return 0;
+				token = new Token('\0');
+				break;
 		}
+	}
+
+	~Evaluator() {
+		delete token;
 	}
 
 
@@ -50,18 +52,18 @@ public:
 
 	double expression() {
 		double left = term();
-		Token token = parseToken();
+		parseToken();
 		while(true) {
-			switch (token.kind) {
+			switch (token->kind) {
 				case '+':
 					finiteControl++;
 					left += term();
-					token = parseToken();
+					parseToken();
 					break;
 				case '-':
 					finiteControl++;
 					left -= term();
-					token = parseToken();
+					parseToken();
 					break;
 				default:
 					return left;
@@ -71,14 +73,14 @@ public:
 
 	double term() {
 		double left = primary();
-		Token token = parseToken();
+		parseToken();
 		while(true) {
-			switch(token.kind) {
+			switch(token->kind) {
 				case '*': 
 				{
 					finiteControl++;
 					double op = primary();
-					token = parseToken();
+					parseToken();
 					left *= op;
 					break;
 				}
@@ -88,7 +90,7 @@ public:
 					double d = primary();
 					if (d==0) return 0;
 					left /= d;
-					token = parseToken();
+					parseToken();
 					break;
 				}
 				case '%':
@@ -96,7 +98,7 @@ public:
 				        finiteControl++;
 					double denominator = primary();
 					left = left - int(left/denominator)*denominator;
-					token = parseToken();
+					parseToken();
 					break;
 				}
 				case '!':
@@ -106,7 +108,7 @@ public:
 						left = 1;
 					for(int i=left-1; i>0; i--)
 						left *= i;
-					token = parseToken();
+					parseToken();
 					break;
 				}
 				default:
@@ -116,19 +118,19 @@ public:
 	}
 
 	double primary() {
-		Token token = parseToken();
-		switch(token.kind) {
+		parseToken();
+		switch(token->kind) {
 			case '(':
 			{
 				finiteControl++;
 				double d = expression();
-				token = parseToken();
+				parseToken();
 				finiteControl++;
-				if (token.kind != ')') return 0;
+				if (token->kind != ')') return 0;
 				return d;
 			}
 			case '8':
-				return token.value;
+				return token->value;
 			case '-': 
 			{
 				finiteControl++;
@@ -147,9 +149,6 @@ public:
 		while(true) {
 			state = transite_number_automaton(state);
 			switch(state) {
-				case 1:
-					sign = -sign;
-					break;
 				case 2:
 					break;
 				case 3:
@@ -167,12 +166,11 @@ public:
 			}
 			finiteControl++;
 		}
-	};
+	}
+
 	short int transite_number_automaton(short int state) {
 		switch(state) {
 			case 1:
-				if (string[finiteControl] == '-')
-					return 1;
 				if (string[finiteControl] == '.')
 					return 2;
 				if ('0' <= string[finiteControl] && string[finiteControl] <= '9')
