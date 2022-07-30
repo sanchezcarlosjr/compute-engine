@@ -1,7 +1,7 @@
 DEPS = 
-OBJ = calculator.o
-NANOLIBC_OBJ = $(patsubst %.cpp,%.o,$(wildcard nanolibc/*.cpp))
-OUTPUT = calculator.wasm
+OBJ = src/calculator.o
+NANOLIBC_OBJ = $(patsubst %.cpp,%.o,$(wildcard src/nanolibc/*.cpp))
+OUTPUT = public/calculator.wasm
 
 COMPILE_FLAGS = -Wall \
 		--target=wasm32 \
@@ -30,10 +30,9 @@ $(OUTPUT): $(OBJ) $(NANOLIBC_OBJ) Makefile
 		$(OBJ) \
 		$(LIBCXX_OBJ) \
 		$(NANOLIBC_OBJ)
-	mv $(OUTPUT) public
 
 
-%.o: %.cpp $(DEPS) Makefile nanolibc/libc.h nanolibc/libc_extra.h
+%.o: %.cpp $(DEPS) Makefile src/nanolibc/libc.h src/nanolibc/libc_extra.h
 	clang++ \
 		-c \
 		$(COMPILE_FLAGS) \
