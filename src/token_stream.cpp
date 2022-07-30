@@ -6,6 +6,14 @@ public:
 };
 
 
+const char NUMBER = '0';
+const char POW = '1';
+const char PI = '2';
+const char COS = '3';
+const char FIB = '4';
+const char DEG_TO_RAD = '5';
+const char SIN = '6';
+
 class TokenStream {
 private:
 	int finiteControl = 0;
@@ -26,24 +34,49 @@ public:
 		}
 		while(string[finiteControl] == ' ')
 			finiteControl++;
+		if (string[finiteControl] == 'c' && string[finiteControl+1] == 'o' && string[finiteControl+2] == 's') {
+			finiteControl += 3;
+			buffer = new Token(COS);
+			return;
+		}
+		if (string[finiteControl] == 'f' && string[finiteControl+1] == 'i' && string[finiteControl+2] == 'b') {
+			finiteControl += 3;
+			buffer = new Token(FIB);
+			return;
+		}
+		if (string[finiteControl] == 'p' && string[finiteControl+1] == 'i') {
+			finiteControl += 2;
+			buffer = new Token(NUMBER, 3.14159265358979);
+			return;
+		}
+		if (string[finiteControl] == 's' && string[finiteControl+1] == 'i' && string[finiteControl+2] == 'n') {
+			finiteControl += 3;
+			buffer = new Token(SIN);
+			return;
+		}
 		switch(string[finiteControl]) {
+			case '*':
+				if (string[finiteControl+1] == '*') {
+					finiteControl += 2;
+					buffer = new Token(POW);
+					break;
+				}
 			case '!':
 			case '-': 
 			case '(': 
 			case ')': 
 			case '+': 
-			case '*': 
 			case '/': 
 			case '%':
 				buffer = new Token(string[finiteControl++]);
 				break;
 			case '.':case '0':case '1': case '2': case '3': case '4':
 			case '5': case '6': case '7': case '8': case '9':
-				buffer = new Token('8', number());
+				buffer = new Token(NUMBER, number());
 				break;
 			case 'e':
 				finiteControl++;
-				buffer = new Token('8',  2.718281828459045);
+				buffer = new Token(NUMBER,  2.718281828459045);
 				break;
 			default:
 				buffer = new Token('\0');

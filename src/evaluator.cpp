@@ -1,5 +1,5 @@
 #include "token_stream.cpp"
-
+#include "math.cpp"
 
 class Evaluator {
 private:
@@ -10,21 +10,20 @@ public:
 	}	
 
 	double evaluate() {
-		return expression();
+		return precedence5();
 	}
 
-	double expression() {
-		double left = term();
+	double precedence5() {
+		double left = precedence4();
 		tokenStream->next();
 		while(true) {
-
 			switch (tokenStream->get()->kind) {
 				case '+':
-					left += term();
+					left += precedence4();
 					tokenStream->next();
 					break;
 				case '-':
-					left -= term();
+					left -= precedence4();
 					tokenStream->next();
 					break;
 				default:
@@ -34,21 +33,21 @@ public:
 		}
 	}
 
-	double term() {
-		double left = primary();
+	double precedence4() {
+		double left = precedence3();
 		tokenStream->next();
 		while(true) {
 			switch(tokenStream->get()->kind) {
 				case '*': 
 				{
-					double op = primary();
+					double op = precedence3();
 					left *= op;
 					tokenStream->next();
 					break;
 				}
 				case '/': 
 				{
-					double d = primary();
+					double d = precedence3();
 					if (d==0) return 0;
 					left /= d;
 					tokenStream->next();
@@ -56,17 +55,8 @@ public:
 				}
 				case '%':
 				{
-					double denominator = primary();
-					left = left - int(left/denominator)*denominator;
-					tokenStream->next();
-					break;
-				}
-				case '!':
-				{
-					if (left == 0)
-						left = 1;
-					for(int i=left-1; i>0; i--)
-						left *= i;
+					double denominator = precedence3();
+					left = mod(left, denominator);
 					tokenStream->next();
 					break;
 				}
@@ -77,24 +67,87 @@ public:
 		}
 	}
 
-	double primary() {
+	double precedence3() {
+		double left = precedence2();
+		tokenStream->next();
+		while(true) {
+			switch(tokenStream->get()->kind) {
+				case POW: 
+				{
+					double exponent = precedence2();
+					left = pow(left, exponent);
+					tokenStream->next();
+					break;
+				}
+				default:
+					  tokenStream->putback();
+					  return left;
+			}
+		}
+	}
+
+	double precedence2() {
+		double left = precedence1();
+		tokenStream->next();
+		while(true) {
+			switch(tokenStream->get()->kind) {
+				case '!': 
+				{
+					left = factorial(left);
+					tokenStream->next();
+					break;
+				}
+				default:
+					  tokenStream->putback();
+					  return left;
+			}
+		}
+	}
+
+
+	double precedence1() {
 		tokenStream->next();
 		switch(tokenStream->get()->kind) {
 			case '(':
 			{
-				double d = expression();
+				double d = precedence5();
 				tokenStream->next();
 				if (tokenStream->get()->kind != ')') return 0;
 				return d;
 			}
-			case '8':
+			case COS:
+			{
+					tokenStream->next();
+					if (tokenStream->get()->kind != '(') return 0;
+					double argument = precedence5();
+					tokenStream->next();
+					if (tokenStream->get()->kind != ')') return 0;
+					return cos(argument);
+			}
+			case FIB:
+			{
+				        tokenStream->next();
+					if (tokenStream->get()->kind != '(') return 0;
+					double argument = precedence5();
+					tokenStream->next();
+					if (tokenStream->get()->kind != ')') return 0;
+					return fib(argument);
+			}
+			case SIN:
+			{
+				        tokenStream->next();
+					if (tokenStream->get()->kind != '(') return 0;
+					double argument = precedence5();
+					tokenStream->next();
+					if (tokenStream->get()->kind != ')') return 0;
+					return sin(argument);
+			}
+			case NUMBER:
 				return tokenStream->get()->value;
 			case '-': 
-			{
-				return -primary();
-			}
+				return -precedence1();
 			case '+':
-			        return primary();
+			        return precedence1();
 			default:
 				return 0;
 		}

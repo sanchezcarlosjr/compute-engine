@@ -38,7 +38,15 @@ TEST(CalculatorTest, ExpressionAssertion) {
   EXPECT_EQ(0, calculate("-a"));
   EXPECT_EQ(6, calculate("3!"));
   EXPECT_EQ(720, calculate("6!"));
+  EXPECT_EQ(4, calculate("2*2!"));
+  EXPECT_EQ(4, calculate("2*2!"));
+  EXPECT_EQ(12, calculate("2*3!"));
+  EXPECT_EQ(12, calculate("3!*2"));
   EXPECT_EQ(3, calculate("   1 + 1 +   1  "));
+  EXPECT_EQ(4, calculate("2**2"));
+  EXPECT_EQ(1, calculate("cos(0)"));
+  EXPECT_EQ(3.14159265358979, calculate("pi"));
+  EXPECT_EQ(1, calculate("sin(pi/2)"));
 }
 
 TEST(CalculatorTest, NumberAssertion) {
