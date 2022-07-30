@@ -43,7 +43,7 @@ start:
 	firebase serve --only hosting
 
 live_test:
-	when-changed -1 src/evaluator.cpp calculator_test.cc -c "make test"
+	when-changed -1 calculator_test.cc -r src -c "make test"
 
 test:
 	cmake --build build
