@@ -38,6 +38,7 @@ TEST(CalculatorTest, ExpressionAssertion) {
   EXPECT_EQ(0, calculate("-a"));
   EXPECT_EQ(6, calculate("3!"));
   EXPECT_EQ(720, calculate("6!"));
+  EXPECT_EQ(3, calculate("   1 + 1 +   1  "));
 }
 
 TEST(CalculatorTest, NumberAssertion) {

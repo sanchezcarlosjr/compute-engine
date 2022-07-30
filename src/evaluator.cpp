@@ -9,13 +9,14 @@ public:
 class Evaluator {
 private:
 	int finiteControl = 0;
-	int c = 0;
 	const char* string;
 	Token* token = NULL;
 public:
 	Evaluator(const char* expression): string(expression) {}	
 
         void parseToken() {
+		while(string[finiteControl] == ' ')
+			finiteControl++;
 		switch(string[finiteControl]) {
 			case '!':
 			case '-': 
