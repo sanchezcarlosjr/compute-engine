@@ -53,7 +53,18 @@
 			document.getElementById("result").innerHTML = calculator.exports.calculate(pointer);
 			calculator.exports.freeMemoryForString(pointer);
 		}
-		document.getElementById("calculator").addEventListener('input', (evt) => calculate(evt.target.value));
+		function save(expression) {
+		       const url = new URL(window.location);
+			url.searchParams.set('q', expression);
+			window.history.pushState({}, '', url);
+		}
+		document.getElementById("calculator")
+		   .addEventListener('input', (evt) => {
+		        calculate(evt.target.value);
+			save(evt.target.value);
+		     }
+		   );
+		document.getElementById("calculator").value = (new URL(document.location)).searchParams.get("q");
 		calculate(document.getElementById("calculator").value);
 	</script>
   </body>
