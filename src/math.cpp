@@ -1,28 +1,6 @@
-float __int_as_float (int32_t a) { float r; memcpy (&r, &a, sizeof r); return r;}
-int32_t __float_as_int (float a) { int32_t r; memcpy (&r, &a, sizeof r); return r;}
-
-float fmaf(float x,float y, float z) {
-	return (x*y) + z;
-}
-
 float ln(double a)
 {
-    float m, r, s, t, i, f;
-    int32_t e;
-
-    e = (__float_as_int (a) - 0x3f2aaaab) & 0xff800000;
-    m = __int_as_float (__float_as_int (a) - e);
-    i = (float)e * 1.19209290e-7f; // 0x1.0p-23
-    /* m in [2/3, 4/3] */
-    f = m - 1.0f;
-    s = f * f;
-    /* Compute log1p(f) for f in [-1/3, 1/3] */
-    r = fmaf (0.230836749f, f, -0.279208571f); // 0x1.d8c0f0p-3, -0x1.1de8dap-2
-    t = fmaf (0.331826031f, f, -0.498910338f); // 0x1.53ca34p-2, -0x1.fee25ap-2
-    r = fmaf (r, s, t);
-    r = fmaf (r, s, f);
-    r = fmaf (i, 0.693147182f, r); // 0x1.62e430p-1 // log(2) 
-    return r;
+    return 0;
 }
 
 
@@ -47,7 +25,7 @@ double pow(double x, int y) {
 	  int sign = y > 0 ? 1 : -1;
 	  y = sign*y;
 	  while (y > 0) {
-		if (y & 1 == 1)
+		if ((y & 1) == 1)
 			result *= x;
 		x=x*x;
 		y >>= 1;
