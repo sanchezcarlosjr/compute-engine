@@ -1,3 +1,9 @@
+double absd(double argument) {
+	return argument > 0 ? argument : -argument;
+}
+
+
+
 double ln(double argument)
 {
     return 0;
@@ -55,12 +61,11 @@ double pow(double x, double y) {
 		return pow_int;
 	// how?
 	double xn = x*0.25;
-	fracc = abs(1/fracc);
+	fracc = absd(1/fracc);
 	for(int i=0; i<1000; i++)
 		xn = xn-(powi(xn, fracc)-x)/(fracc*powi(xn, fracc-1));
 	return pow_int*xn;
 }
-
 
 double cos(double argument) {
 	return 1;
