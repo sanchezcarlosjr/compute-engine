@@ -20,7 +20,7 @@ double mod(double n, double denominator) {
 
 
 // https://en.wikipedia.org/wiki/Exponentiation_by_squaring
-double pow(double x, int y) {
+double powi(double x, int y) {
 	  int result = 1;
 	  int sign = y > 0 ? 1 : -1;
 	  y = sign*y;
@@ -50,13 +50,14 @@ double pow(double x, double y) {
 	int ny = y;
 	double fracc = ny-y;
 	bool isInt = fracc == 0;
-	double pow_int = pow(x, ny);
+	double pow_int = powi(x, ny);
 	if (isInt)
 		return pow_int;
 	// how?
-	double xn = x/y;
-	for(int i=0; i<50; i++)
-		xn = xn-(pow(xn, y)-x)/pow(xn,y-1);
+	double xn = x*0.25;
+	fracc = abs(1/fracc);
+	for(int i=0; i<1000; i++)
+		xn = xn-(powi(xn, fracc)-x)/(fracc*powi(xn, fracc-1));
 	return pow_int*xn;
 }
 
