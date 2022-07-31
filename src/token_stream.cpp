@@ -13,6 +13,7 @@ const char COS = '3';
 const char FIB = '4';
 const char DEG_TO_RAD = '5';
 const char SIN = '6';
+const char LN = '7';
 
 class TokenStream {
 private:
@@ -52,6 +53,11 @@ public:
 		if (string[finiteControl] == 's' && string[finiteControl+1] == 'i' && string[finiteControl+2] == 'n') {
 			finiteControl += 3;
 			buffer = new Token(SIN);
+			return;
+		}
+		if (string[finiteControl] == 'l' && string[finiteControl+1] == 'n') {
+			finiteControl += 2;
+			buffer = new Token(LN);
 			return;
 		}
 		switch(string[finiteControl]) {

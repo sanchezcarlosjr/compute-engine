@@ -142,6 +142,15 @@ public:
 					if (tokenStream->get()->kind != ')') return 0;
 					return sin(argument);
 			}
+			case LN:
+			{
+				        tokenStream->next();
+					if (tokenStream->get()->kind != '(') return 0;
+					double argument = precedence5();
+					tokenStream->next();
+					if (tokenStream->get()->kind != ')') return 0;
+					return ln(argument);
+			}
 			case NUMBER:
 				return tokenStream->get()->value;
 			case '-': 
