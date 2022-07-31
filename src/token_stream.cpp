@@ -14,10 +14,11 @@ const char FIB = '4';
 const char DEG_TO_RAD = '5';
 const char SIN = '6';
 const char LN = '7';
+const char LOG = '8';
 
-class TokenStream {
-private:
-	int finiteControl = 0;
+class TokenStream { 
+private: 
+	int finiteControl = 0; 
 	const char* string;
 	bool full = false;
 	Token* buffer = NULL;
@@ -50,6 +51,11 @@ public:
 			buffer = new Token(NUMBER, 3.14159265358979);
 			return;
 		}
+		if (string[finiteControl] == 'l' && string[finiteControl+1] == 'o' && string[finiteControl+2] == 'g') {
+			finiteControl += 3;
+			buffer = new Token(LOG);
+			return;
+		} 
 		if (string[finiteControl] == 's' && string[finiteControl+1] == 'i' && string[finiteControl+2] == 'n') {
 			finiteControl += 3;
 			buffer = new Token(SIN);

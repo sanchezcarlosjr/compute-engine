@@ -54,9 +54,13 @@ TEST(CalculatorTest, ExpressionAssertion) {
   EXPECT_EQ(0.5, calculate("2**-1"));
   EXPECT_EQ(0.25, calculate("2**-2"));
   EXPECT_EQ(0.008, calculate("5**-3"));
+  EXPECT_EQ(1, calculate("log55555(4)"));
+  EXPECT_EQ(1, calculate("0**0"));
+  EXPECT_EQ(0, calculate("0**1"));
   EXPECT_EQ(1, calculate("ln(e**10)"));
   EXPECT_EQ(2, calculate("4**0.5"));
   EXPECT_EQ(4, calculate("16**0.5"));
+  EXPECT_EQ(64, calculate("16**1.5"));
 }
 
 TEST(CalculatorTest, NumberAssertion) {

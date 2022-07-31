@@ -151,6 +151,19 @@ public:
 					if (tokenStream->get()->kind != ')') return 0;
 					return ln(argument);
 			}
+			case LOG:
+			{
+				        tokenStream->next();
+					double base = tokenStream->get()->value;
+					if (tokenStream->get()->kind != NUMBER) 
+						base = 10;
+					tokenStream->next();
+					if (tokenStream->get()->kind != '(') return 0;
+					double argument = precedence5();
+					tokenStream->next();
+					if (tokenStream->get()->kind != ')') return 0;
+					return log(base, argument);
+			}
 			case NUMBER:
 				return tokenStream->get()->value;
 			case '-': 

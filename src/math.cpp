@@ -1,4 +1,4 @@
-float ln(double a)
+double ln(double argument)
 {
     return 0;
 }
@@ -39,6 +39,8 @@ double pow(double x, int y) {
 // left**exponent = x
 // logb(x)-exponent=0; it solves with root finder like Newton-Rapshon method.
 double pow(double x, double y) {
+	if (x == 0 && y != 0)
+		return 0;
 	if (y == 0)
 		return 1;
 	if (y == 1)
@@ -46,14 +48,17 @@ double pow(double x, double y) {
 	if (y == 2)
 		return x*x;
 	int ny = y;
-	bool isInt = ny-y == 0;
+	double fracc = ny-y;
+	bool isInt = fracc == 0;
+	double pow_int = pow(x, ny);
 	if (isInt)
-		return pow(x, ny);
+		return pow_int;
 	// how?
-	return 0.5;
+	double xn = x/y;
+	for(int i=0; i<50; i++)
+		xn = xn-(pow(xn, y)-x)/pow(xn,y-1);
+	return pow_int*xn;
 }
-
-
 
 
 double cos(double argument) {
@@ -67,6 +72,10 @@ int fib(int n) {
 }
 
 double sin(double n) {
+	return 1;
+}
+
+double log(double base, double argument) {
 	return 1;
 }
 
