@@ -151,6 +151,15 @@ public:
 					if (tokenStream->get()->kind != ')') return 0;
 					return ln(argument);
 			}
+                   	case SQRT:
+			{
+				        tokenStream->next();
+					if (tokenStream->get()->kind != '(') return 0;
+					double argument = precedence5();
+					tokenStream->next();
+					if (tokenStream->get()->kind != ')') return 0;
+					return sqrt(argument);
+			}
 			case LOG:
 			{
 				        tokenStream->next();

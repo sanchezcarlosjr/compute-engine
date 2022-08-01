@@ -15,6 +15,7 @@ const char DEG_TO_RAD = '5';
 const char SIN = '6';
 const char LN = '7';
 const char LOG = '8';
+const char SQRT = '9';
 
 class TokenStream { 
 private: 
@@ -64,6 +65,11 @@ public:
 		if (string[finiteControl] == 'l' && string[finiteControl+1] == 'n') {
 			finiteControl += 2;
 			buffer = new Token(LN);
+			return;
+		}
+	        if (string[finiteControl] == 's' && string[finiteControl+1] == 'q' && string[finiteControl+2] == 'r' && string[finiteControl+3] == 't') {
+			finiteControl += 4;
+			buffer = new Token(SQRT);
 			return;
 		}
 		switch(string[finiteControl]) {

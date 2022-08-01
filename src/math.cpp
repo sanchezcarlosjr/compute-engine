@@ -1,14 +1,47 @@
-double absd(double argument) {
+double dabs(double argument) {
 	return argument > 0 ? argument : -argument;
 }
 
 
-
-double ln(double argument)
-{
-    return 0;
+double sqrt(double x) {
+	double xn = x;
+	double a = 0;
+	do {
+	  a = xn;
+	  xn = (xn+x/xn)/2;
+	} while (dabs(a-xn) > 0.0000000000000001);
+	return xn;
 }
 
+double ln(double a) {
+    double w = a, prod = 1;
+    int n = 1;
+    double acc = 0;
+    double e2 = 2;
+    do {
+        w = sqrt(w);
+        prod *= 1 + w;
+        acc = (e2*(a-1))/prod;
+	e2 *= 2;
+        n++;
+    } while(dabs(w-1) > 0.0000000000001);
+    return acc;
+}
+
+
+double exp(double x) {
+	double acc = 1;
+	double fact = 1;
+	double o = x;
+	int n = 1;
+	do {
+		fact *= n;
+		acc += x/fact;
+		x = x * o;
+		n++;
+	} while (n<=7547);
+	return acc;
+}
 
 
 // TODO: Gamma function
@@ -26,15 +59,15 @@ double mod(double n, double denominator) {
 
 
 // https://en.wikipedia.org/wiki/Exponentiation_by_squaring
-double powi(double x, int y) {
-	  int result = 1;
-	  int sign = y > 0 ? 1 : -1;
-	  y = sign*y;
-	  while (y > 0) {
-		if ((y & 1) == 1)
-			result *= x;
-		x=x*x;
-		y >>= 1;
+double ipow(double base, int exponent) {
+	  double result = 1;
+	  double sign = exponent > 0 ? 1 : -1;
+	  exponent = sign*exponent;
+	  while (exponent > 0) {
+		if (exponent & 1)
+			result *= base;
+		base=base*base;
+		exponent >>= 1;
 	  }
 	  if (sign<0) {
 		  return (double)1/result;
@@ -42,8 +75,6 @@ double powi(double x, int y) {
 	  return result;
 }
 
-// left**exponent = x
-// logb(x)-exponent=0; it solves with root finder like Newton-Rapshon method.
 double pow(double x, double y) {
 	if (x == 0 && y != 0)
 		return 0;
@@ -54,17 +85,15 @@ double pow(double x, double y) {
 	if (y == 2)
 		return x*x;
 	int ny = y;
-	double fracc = ny-y;
+	double fracc = dabs(ny-y);
 	bool isInt = fracc == 0;
-	double pow_int = powi(x, ny);
+	double pow_int = ipow(x, ny);
 	if (isInt)
 		return pow_int;
 	// how?
-	double xn = x*0.25;
-	fracc = absd(1/fracc);
-	for(int i=0; i<1000; i++)
-		xn = xn-(powi(xn, fracc)-x)/(fracc*powi(xn, fracc-1));
-	return pow_int*xn;
+	if (fracc == 0.5)
+		return pow_int*sqrt(x);
+	return pow_int*exp(fracc*ln(x));
 }
 
 double cos(double argument) {
@@ -82,7 +111,7 @@ double sin(double n) {
 }
 
 double log(double base, double argument) {
-	return 1;
+	return ln(argument)/ln(base);
 }
 
 
