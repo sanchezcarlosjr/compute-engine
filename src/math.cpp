@@ -113,7 +113,7 @@ double cos(double x, int y = 30)
         else
             result -= inter;
     }
-    return result;
+    return sign*result;
 }
 
 const double ratio = 1.618033988749895;
