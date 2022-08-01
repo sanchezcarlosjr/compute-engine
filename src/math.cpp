@@ -6,8 +6,7 @@ double dabs(double argument) {
 double sqrt(double x) {
 	if (x == 1 || x== 0)
 		return x;
-	double xn = x;
-	double a = 0;
+	double xn = x, a = 0;
 	do {
 	  a = xn;
 	  xn = (xn+x/xn)/2;
@@ -16,30 +15,24 @@ double sqrt(double x) {
 }
 
 double ln(double a) {
-    double w = a, prod = 1;
-    int n = 1;
-    double acc = 0;
-    double e2 = 2;
+    double w = a, prod = 1, acc = 0, e2 = 2;
     do {
         w = sqrt(w);
         prod *= 1 + w;
         acc = (e2*(a-1))/prod;
 	e2 *= 2;
-        n++;
     } while(dabs(w-1) > 0.0000000000001);
     return acc;
 }
 
 
 double exp(double x) {
-	double acc = 1;
-	double fact = 1;
-	double o = x;
+	double acc = 1, fact = 1, a = x;
 	int n = 1;
 	do {
 		fact *= n;
 		acc += x/fact;
-		x = x * o;
+		x *= a;
 		n++;
 	} while (n<=7547);
 	return acc;
@@ -62,8 +55,7 @@ double mod(double n, double denominator) {
 
 // https://en.wikipedia.org/wiki/Exponentiation_by_squaring
 double ipow(double base, int exponent) {
-	  double result = 1;
-	  double sign = exponent > 0 ? 1 : -1;
+	  double result = 1, sign = exponent > 0 ? 1 : -1;
 	  exponent = sign*exponent;
 	  while (exponent > 0) {
 		if (exponent & 1)
@@ -87,9 +79,8 @@ double pow(double x, double y) {
 	if (y == 2)
 		return x*x;
 	int ny = y;
-	double fracc = dabs(ny-y);
+	double fracc = dabs(ny-y), pow_int = ipow(x, ny);
 	bool isInt = fracc == 0;
-	double pow_int = ipow(x, ny);
 	if (isInt)
 		return pow_int;
 	// how?

@@ -58,6 +58,9 @@ TEST(CalculatorTest, ExpressionAssertion) {
   EXPECT_EQ(0, calculate("ln(1)"));
   EXPECT_EQ(2, calculate("4**0.5"));
   EXPECT_EQ(64, calculate("16**1.5"));
+  EXPECT_EQ(4, calculate("sqrt(16)"));
+  EXPECT_EQ(0, calculate("sqrt(0)"));
+  EXPECT_EQ(1, calculate("cos(2*pi)"));
 }
 
 TEST(CalculatorTest, NumberAssertion) {
