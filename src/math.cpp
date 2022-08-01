@@ -4,6 +4,8 @@ double dabs(double argument) {
 
 
 double sqrt(double x) {
+	if (x == 1 || x== 0)
+		return x;
 	double xn = x;
 	double a = 0;
 	do {
