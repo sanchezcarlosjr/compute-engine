@@ -96,8 +96,31 @@ double pow(double x, double y) {
 	return pow_int*exp(fracc*ln(x));
 }
 
-double cos(double argument) {
-	return 1;
+#define CONST_PI 3.14159265358979
+
+// https://austinhenley.com/blog/cosine.html
+double cos(double x, int y = 30)
+{
+    int div = (int)(x / CONST_PI);
+    x = x - (div * CONST_PI);
+    char sign = 1;
+    if (div % 2 != 0)
+        sign = -1;
+
+    double result = 1.0;
+    double inter = 1.0;
+    double num = x * x;
+    for (int i = 1; i <= y; i++)
+    {
+        double comp = 2.0 * i;
+        double den = comp * (comp - 1.0);
+        inter *= num / den;
+        if (i % 2 == 0)
+            result += inter;
+        else
+            result -= inter;
+    }
+    return result;
 }
 
 const double ratio = 1.618033988749895;
