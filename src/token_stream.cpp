@@ -8,10 +8,10 @@ public:
 
 const char NUMBER = '0';
 const char POW = '1';
-const char PI = '2';
+const char MAX = '2';
 const char COS = '3';
 const char FIB = '4';
-const char DEG_TO_RAD = '5';
+const char MIN = '5';
 const char SIN = '6';
 const char LN = '7';
 const char LOG = '8';

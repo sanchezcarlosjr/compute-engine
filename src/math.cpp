@@ -123,7 +123,7 @@ int fib(int n) {
 }
 
 double sin(double n) {
-	return 1;
+	return cos(n-CONST_PI/2);
 }
 
 double log(double base, double argument) {
