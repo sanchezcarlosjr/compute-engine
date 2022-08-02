@@ -4,15 +4,15 @@
 
 #define WASM_EXPORT __attribute__((visibility("default"))) extern "C"
 
-WASM_EXPORT char* allocateMemoryForString(int size) {
-	return new char[size];
+WASM_EXPORT char *allocateMemoryForString(int size) {
+    return new char[size];
 }
 
-WASM_EXPORT void freeMemoryForString(char* str) {
-	delete[] str;
+WASM_EXPORT void freeMemoryForString(char *str) {
+    delete[] str;
 }
 
-WASM_EXPORT double calculate(const char* expression) {
-	Evaluator evaluator(expression);
-	return evaluator.evaluate();
+WASM_EXPORT double calculate(const char *expression) {
+    Evaluator evaluator(expression);
+    return evaluator.evaluate();
 }
