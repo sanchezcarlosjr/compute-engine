@@ -1,70 +1,79 @@
 <!doctype html>
 <html>
-  <head>
+<head>
     <title>First compiler (aka calculator)</title>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
     <link href="tailwind.css" rel="stylesheet">
-  </head>
-  <body>
-	<h1 class="text-4xl font-medium leading-tight text-gray-800">Calculator - Carlos Eduardo Sanchez Torres</h1>
-	<form>
-  		<div class="mb-6">
-    			<label for="calculator" class="block mb-2 text-sm font-medium text-gray-900">Your expression</label>
-			<textarea aria-label="Search" spellcheck="false" type="calculator" id="calculator" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5" rows=5 placeholder="2+2" required></textarea>
-  		</div>
-		<h2 class="text-sm font-medium leading-tight text-gray-800">
-    The result is
-    <span id="result" class="inline-block py-1.5 px-2.5 leading-none text-center whitespace-nowrap align-baseline font-bold bg-blue-600 text-white rounded">0</span>
-  </h2>
-	</form>
-	
-	<footer class="p-4 bg-white rounded-lg shadow md:flex md:items-center md:justify-between md:p-6">
-    <span class="text-sm text-gray-500 sm:text-center">2022 <a href="https://sanchezcarlosjr.com/" class="hover:underline">Sanchezcarlosjr</a>. 
+</head>
+<body>
+<h1 class="text-4xl font-medium leading-tight text-gray-800">Calculator - Carlos Eduardo Sanchez Torres</h1>
+<form>
+    <div class="mb-6">
+        <label class="block mb-2 text-sm font-medium text-gray-900" for="calculator">Your expression</label>
+        <textarea aria-label="Search" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5" id="calculator" placeholder="2+2"
+                  required
+                  rows=5 spellcheck="false" type="calculator"></textarea>
+    </div>
+    <h2 class="text-sm font-medium leading-tight text-gray-800">
+        The result is
+        <span class="inline-block py-1.5 px-2.5 leading-none text-center whitespace-nowrap align-baseline font-bold bg-blue-600 text-white rounded"
+              id="result">0</span>
+    </h2>
+</form>
+
+<footer class="p-4 bg-white rounded-lg shadow md:flex md:items-center md:justify-between md:p-6">
+    <span class="text-sm text-gray-500 sm:text-center">2022 <a class="hover:underline"
+                                                               href="https://sanchezcarlosjr.com/">Sanchezcarlosjr</a>.
     </span>
     <ul class="flex flex-wrap items-center mt-3 text-sm text-gray-500 sm:mt-0">
         <li>
-            <a href="https://github.com/sanchezcarlosjr/my-first-compiler-aka-calculator" class="mr-4 hover:underline md:mr-6 ">GitHub</a>
+            <a class="mr-4 hover:underline md:mr-6 "
+               href="https://github.com/sanchezcarlosjr/my-first-compiler-aka-calculator">GitHub</a>
         </li>
         <li>
-            <a href="https://carlos-eduardo-sanchez-torres.sanchezcarlosjr.com/Make-your-own-compiler-on-the-Web-in-Plain-English-WebAssembly-c0cc7c5956d648b69b07d718e7f36a3b" class="hover:underline">Article</a>
+            <a class="hover:underline"
+               href="https://carlos-eduardo-sanchez-torres.sanchezcarlosjr.com/Make-your-own-compiler-on-the-Web-in-Plain-English-WebAssembly-c0cc7c5956d648b69b07d718e7f36a3b">Article</a>
         </li>
     </ul>
-	</footer>
-	<script type="module">	
-          	const importObject = {
-			env: {
-				print_string: function(str) {
-					console.log("");
-				}
-			}
-		};
-		const calculator = await (async (url) => {
-			const { instance } = await WebAssembly.instantiateStreaming(fetch(url), importObject);
-			return instance;
-		})("calculator.wasm"); 
-                const encoder = new TextEncoder("utf-8");
-		function calculate(str) {
-		        const expression = encoder.encode(str + "\x00");
-			const pointer = calculator.exports.allocateMemoryForString(expression.length + 1);
-			const memory = new Uint8Array(calculator.exports.memory.buffer);
-			memory.subarray(pointer).set(expression);
-			document.getElementById("result").innerHTML = calculator.exports.calculate(pointer);
-			calculator.exports.freeMemoryForString(pointer);
-		}
-		function save(expression) {
-		       const url = new URL(window.location);
-			url.searchParams.set('q', expression);
-			window.history.pushState({}, '', url);
-		}
-		document.getElementById("calculator")
-		   .addEventListener('input', (evt) => {
-		        calculate(evt.target.value);
-			save(evt.target.value);
-		     }
-		   );
-		document.getElementById("calculator").value = (new URL(document.location)).searchParams.get("q");
-		calculate(document.getElementById("calculator").value);
-	</script>
-  </body>
+</footer>
+<script type="module">
+    const importObject = {
+        env: {
+            print_string: function (str) {
+                console.log("");
+            }
+        }
+    };
+    const calculator = await (async (url) => {
+        const {instance} = await WebAssembly.instantiateStreaming(fetch(url), importObject);
+        return instance;
+    })("calculator.wasm");
+    const encoder = new TextEncoder("utf-8");
+
+    function calculate(str) {
+        const expression = encoder.encode(str + "\x00");
+        const pointer = calculator.exports.allocateMemoryForString(expression.length + 1);
+        const memory = new Uint8Array(calculator.exports.memory.buffer);
+        memory.subarray(pointer).set(expression);
+        document.getElementById("result").innerHTML = calculator.exports.calculate(pointer);
+        calculator.exports.freeMemoryForString(pointer);
+    }
+
+    function save(expression) {
+        const url = new URL(window.location);
+        url.searchParams.set('q', expression);
+        window.history.pushState({}, '', url);
+    }
+
+    document.getElementById("calculator")
+        .addEventListener('input', (evt) => {
+                calculate(evt.target.value);
+                save(evt.target.value);
+            }
+        );
+    document.getElementById("calculator").value = (new URL(document.location)).searchParams.get("q");
+    calculate(document.getElementById("calculator").value);
+</script>
+</body>
 </html>
