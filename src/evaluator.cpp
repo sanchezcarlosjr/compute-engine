@@ -10,7 +10,20 @@ public:
     }
 
     double evaluate() {
-        return precedence5();
+        double left = precedence5();
+        tokenStream->next();
+        while (true) {
+            switch (tokenStream->get()->kind) {
+                case ';': {
+                    double temporal = precedence5();
+                    left = temporal == 0 ? left : temporal;
+                    tokenStream->next();
+                    break;
+                }
+                default:
+                    return left;
+            }
+        }
     }
 
     double precedence5() {

@@ -36,7 +36,7 @@ public:
             full = false;
             return;
         }
-        while (string[finiteControl] == ' ')
+        while (string[finiteControl] == ' ' || string[finiteControl] == '\n')
             finiteControl++;
         if (string[finiteControl] == 'c' && string[finiteControl + 1] == 'o' && string[finiteControl + 2] == 's') {
             finiteControl += 3;
@@ -85,6 +85,7 @@ public:
             case '-':
             case '(':
             case ')':
+            case ';':
             case '+':
             case '/':
             case '%':
