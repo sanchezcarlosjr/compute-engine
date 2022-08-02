@@ -1,5 +1,5 @@
 #include <gtest/gtest.h>
-#include "src/calculator.cpp"
+#include "../src/calculator.cpp"
 
 TEST(CalculatorTest, ExpressionAssertion) {
   EXPECT_EQ(2, calculate("1+1"));
@@ -76,4 +76,3 @@ TEST(CalculatorTest, NumberAssertion) {
   EXPECT_EQ(0.55, calculate(".5500"));
   EXPECT_EQ(12.55, calculate("----12.55"));
 }
-

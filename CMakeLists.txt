@@ -17,8 +17,9 @@ enable_testing()
 
 add_executable(
   calculator_test
-  calculator_test.cc
+        tests/CalculatorTest.cpp
 )
+
 target_link_libraries(
   calculator_test
   GTest::gtest_main
