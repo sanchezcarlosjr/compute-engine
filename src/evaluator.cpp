@@ -15,8 +15,7 @@ public:
         while (true) {
             switch (tokenStream->get()->kind) {
                 case ';': {
-                    double temporal = precedence5();
-                    left = temporal == 0 ? left : temporal;
+                    left = precedence5();
                     tokenStream->next();
                     break;
                 }
