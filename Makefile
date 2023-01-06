@@ -1,14 +1,14 @@
-DEPS = 
-OBJ = src/calculator.o
-NANOLIBC_OBJ = $(patsubst %.cpp,%.o,$(wildcard src/nanolibc/*.cpp))
-OUTPUT = public/calculator.wasm
+EPS = 
+OBJ = alpha/alpha.o
+NANOLIBC_OBJ = $(patsubst %.cpp,%.o,$(wildcard clang-wasm/nanolibc/*.cpp))
+OUTPUT = static/app.wasm
 
 COMPILE_FLAGS = -Wall \
 		--target=wasm32 \
 		-Os \
 		-nostdlib \
 		-fvisibility=hidden \
-		-std=c++20 \
+		-std=c++17 \
 		-ffunction-sections \
 		-fdata-sections \
 		-DPRINTF_DISABLE_SUPPORT_FLOAT=1 \
@@ -32,22 +32,17 @@ $(OUTPUT): $(OBJ) $(NANOLIBC_OBJ) Makefile
 		$(NANOLIBC_OBJ)
 
 
-%.o: %.cpp $(DEPS) Makefile src/nanolibc/libc.h src/nanolibc/libc_extra.h
+%.o: %.cpp $(DEPS) Makefile clang-wasm/nanolibc/libc.h clang-wasm/nanolibc/libc_extra.h
 	clang++ \
 		-c \
 		$(COMPILE_FLAGS) \
 		-o $@ \
 		$<
 
-start:
-	firebase serve --only hosting
+library.wat: $(OUTPUT) Makefile
+	~/build/wabt/wasm2wat -o library.wat $(OUTPUT)
 
-live_test:
-	when-changed -1 calculator_test.cc -r src -c "make test"
-
-test:
-	cmake --build build
-	cd build && ctest --rerun-failed --output-on-failure
+wat: library.wat
 
 clean:
-	rm -f $(OBJ) $(NANOLIBC_OBJ) $(OUTPUT)
+	rm -f $(OBJ) $(NANOLIBC_OBJ) $(OUTPUT) library.wat
