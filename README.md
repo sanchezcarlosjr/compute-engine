@@ -1,5 +1,4 @@
-# My first compiler (aka calculator)
-My first compiler (aka calculator) using Programming -- Principles and Practice Using C++ Stroustrup
+# Alpha
 https://calculator.sanchezcarlosjr.com/
 
 # Prerequisites
@@ -10,7 +9,7 @@ https://calculator.sanchezcarlosjr.com/
 # Installation
 1.
 ```
-git clone https://github.com/sanchezcarlosjr/my-first-compiler-aka-calculator.git
+git clone https://github.com/sanchezcarlosjr/calculator.git
 ```
 
 2. 
