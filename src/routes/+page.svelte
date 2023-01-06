@@ -1,6 +1,6 @@
 <script>
   import "../app.css";
-  import Cell from '../lib/cell.svelte';
+  import Cell from '$lib/cell.svelte';
 </script>
 
 <div class="flex flex-row justify-center mt-6">

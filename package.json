@@ -35,6 +35,7 @@
 	},
 	"type": "module",
 	"dependencies": {
-		"html-minifier": "^4.0.0"
+		"html-minifier": "^4.0.0",
+		"mathlive": "^0.86.0"
 	}
 }

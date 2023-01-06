@@ -1,3 +1,4 @@
+@import "mathlive/dist/mathlive-static.css";
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
