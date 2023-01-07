@@ -15,7 +15,7 @@
 </script>
 
 <div class="grow-wrap" data-replicated-cell={cell}>
-  <textarea data-gramm="false" bind:value={cell} on:keydown={onKeyDown} rows="1"></textarea>
+  <textarea placeholder="Enter what you want to calculate" data-gramm="false" bind:value={cell} on:keydown={onKeyDown} rows="1"></textarea>
 </div>
 
 <style>

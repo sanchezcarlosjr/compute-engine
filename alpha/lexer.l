@@ -1,26 +1,27 @@
 %option noyywrap batch
 
 %{
-int chars = 0;
+#include "parser.c"
 %}
 
 %%
-[a-z]      {
-            /* count the spaces */
-            chars++;
-        }
+[ \t]	;
+[0-9]+\.[0-9]+ 	{yylval.fval = atof(yytext); return T_FLOAT;}
+[0-9]+		{yylval.ival = atoi(yytext); return T_INT;}
+\n		{return T_NEWLINE;}
+"+"		{return T_PLUS;}
+"-"		{return T_MINUS;}
+"*"		{return T_MULTIPLY;}
+"/"		{return T_DIVIDE;}
+"("		{return T_LEFT;}
+")"		{return T_RIGHT;}
 . {}
 %%
 
-void analyze(const char* in)  {
-	chars = 0;
-	YY_BUFFER_STATE bp = yy_scan_string(in);  // Creates a buffer from the string
-	yy_switch_to_buffer(bp);                   // Use the buffer
-	int ret = yylex();                       // Parse the string
-	yy_delete_buffer(bp);                      // Free the buffer
+float analyze(const char* in)  {
+	YY_BUFFER_STATE bp = yy_scan_string(in);
+	yy_switch_to_buffer(bp);
+	int ret = yyparse();
+	yy_delete_buffer(bp);
+	return get_result();
 }
-
-int get_chars() {
-   return chars;
-}
-

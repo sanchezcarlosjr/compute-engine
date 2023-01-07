@@ -12,7 +12,7 @@
       result = "";
       return;
     }
-    result = alpha.interpret(cell);
+    result = alpha.interpret(cell+"\n");
   }
 </script>
 
