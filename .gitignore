@@ -70,3 +70,6 @@ node_modules/
 *.o
 *.wasm
 build/
+
+# ide
+.idea/
