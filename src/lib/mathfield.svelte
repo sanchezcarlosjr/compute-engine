@@ -1,20 +1,13 @@
 <script>
-  import { onMount } from "svelte";
   import * as mathlive from 'mathlive'
+  export let value;
+  import { beforeUpdate } from 'svelte';
   let mf;
-  onMount(() => {
-    if (mf) {
-      mf.focus();
+  beforeUpdate(() => {
+    if (mf !== undefined) {
+      mf.setValue(value);
     }
   });
 </script>
 
-<math-field bind:this="{mf}"></math-field>
-
-<style>
-    math-field {
-        border: 1px solid palegreen;
-        padding: 0.5rem;
-        font: inherit;
-    }
-</style>
+<math-field bind:this="{mf}" readonly></math-field>

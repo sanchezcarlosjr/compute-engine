@@ -1,10 +1,10 @@
 export const manifest = {
 	appDir: "_app",
 	appPath: "_app",
-	assets: new Set(["app.wasm","favicon.png"]),
-	mimeTypes: {".wasm":"application/wasm",".png":"image/png"},
+	assets: new Set(["app.wasm","favicon.ico"]),
+	mimeTypes: {".wasm":"application/wasm",".ico":"image/vnd.microsoft.icon"},
 	_: {
-		entry: {"file":"_app/immutable/start-9f7be75b.js","imports":["_app/immutable/start-9f7be75b.js","_app/immutable/chunks/index-7f3551f2.js","_app/immutable/chunks/singletons-c1916556.js"],"stylesheets":[],"fonts":[]},
+		entry: {"file":"_app/immutable/start-b22ba9b8.js","imports":["_app/immutable/start-b22ba9b8.js","_app/immutable/chunks/index-e02e35d2.js","_app/immutable/chunks/singletons-2157a179.js"],"stylesheets":[],"fonts":[]},
 		nodes: [
 			() => import('./nodes/0.js'),
 			() => import('./nodes/1.js'),

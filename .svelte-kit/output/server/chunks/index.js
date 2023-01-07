@@ -2469,7 +2469,7 @@ function set_paths(paths) {
   base = paths.base;
   assets = paths.assets || base;
 }
-const app_template = ({ head, body, assets: assets2, nonce }) => '<!DOCTYPE html>\n<html lang="en">\n	<head>\n		<meta charset="utf-8" />\n		<link rel="icon" href="' + assets2 + '/favicon.png" />\n		<meta name="viewport" content="width=device-width" />\n		' + head + '\n	</head>\n	<body data-sveltekit-preload-data="hover">\n		<div style="display: contents">' + body + "</div>\n	</body>\n</html>\n";
+const app_template = ({ head, body, assets: assets2, nonce }) => '<!DOCTYPE html>\n<html lang="en">\n	<head>\n		<meta charset="utf-8" />\n		<title>Alpha Compute Engine</title>\n		<link rel="icon" href="' + assets2 + '/favicon.ico" />\n		<meta name="viewport" content="width=device-width" />\n		' + head + '\n	</head>\n	<body data-sveltekit-preload-data="hover">\n		<div style="display: contents">' + body + "</div>\n	</body>\n</html>\n";
 const error_template = ({ status, message }) => '<!DOCTYPE html>\n<html lang="en">\n	<head>\n		<meta charset="utf-8" />\n		<title>' + message + `</title>
 
 		<style>
@@ -2549,7 +2549,7 @@ class Server {
       app_template,
       app_template_contains_nonce: false,
       error_template,
-      version: "1672976089642"
+      version: "1672987986315"
     };
   }
   /**

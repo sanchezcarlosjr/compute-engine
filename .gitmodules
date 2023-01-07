@@ -1,3 +1,0 @@
-[submodule "clang-wasm"]
-	path = clang-wasm
-	url = https://github.com/PetterS/clang-wasm/

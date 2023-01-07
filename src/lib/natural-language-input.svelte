@@ -1,10 +1,15 @@
 <script>
   import "../app.css";
+  import { createEventDispatcher } from 'svelte';
   const ENTER = 13;
   let cell = "";
+  const dispatch = createEventDispatcher();
   function onKeyDown(event) {
     if(event.keyCode === ENTER && event.shiftKey) {
       event.preventDefault();
+      dispatch('message', {
+        cell
+      });
     }
   }
 </script>

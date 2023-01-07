@@ -1,0 +1,15 @@
+// vite.config.ts
+import { sveltekit } from "file:///home/cest/Workspace/calculator/node_modules/@sveltejs/kit/src/exports/vite/index.js";
+var config = {
+  plugins: [
+    sveltekit()
+  ],
+  test: {
+    include: ["src/**/*.{test,spec}.{js,ts}"]
+  }
+};
+var vite_config_default = config;
+export {
+  vite_config_default as default
+};
+//# sourceMappingURL=data:application/json;base64,ewogICJ2ZXJzaW9uIjogMywKICAic291cmNlcyI6IFsidml0ZS5jb25maWcudHMiXSwKICAic291cmNlc0NvbnRlbnQiOiBbImNvbnN0IF9fdml0ZV9pbmplY3RlZF9vcmlnaW5hbF9kaXJuYW1lID0gXCIvaG9tZS9jZXN0L1dvcmtzcGFjZS9jYWxjdWxhdG9yXCI7Y29uc3QgX192aXRlX2luamVjdGVkX29yaWdpbmFsX2ZpbGVuYW1lID0gXCIvaG9tZS9jZXN0L1dvcmtzcGFjZS9jYWxjdWxhdG9yL3ZpdGUuY29uZmlnLnRzXCI7Y29uc3QgX192aXRlX2luamVjdGVkX29yaWdpbmFsX2ltcG9ydF9tZXRhX3VybCA9IFwiZmlsZTovLy9ob21lL2Nlc3QvV29ya3NwYWNlL2NhbGN1bGF0b3Ivdml0ZS5jb25maWcudHNcIjtpbXBvcnQgeyBzdmVsdGVraXQgfSBmcm9tICdAc3ZlbHRlanMva2l0L3ZpdGUnO1xuaW1wb3J0IHR5cGUgeyBVc2VyQ29uZmlnIH0gZnJvbSAndml0ZSc7XG5cbmNvbnN0IGNvbmZpZzogVXNlckNvbmZpZyA9IHtcblx0cGx1Z2luczogW1xuXHRcdHN2ZWx0ZWtpdCgpXG5cdF0sXG5cdHRlc3Q6IHtcblx0XHRpbmNsdWRlOiBbJ3NyYy8qKi8qLnt0ZXN0LHNwZWN9Lntqcyx0c30nXVxuXHR9XG59O1xuXG5leHBvcnQgZGVmYXVsdCBjb25maWc7XG4iXSwKICAibWFwcGluZ3MiOiAiO0FBQStRLFNBQVMsaUJBQWlCO0FBR3pTLElBQU0sU0FBcUI7QUFBQSxFQUMxQixTQUFTO0FBQUEsSUFDUixVQUFVO0FBQUEsRUFDWDtBQUFBLEVBQ0EsTUFBTTtBQUFBLElBQ0wsU0FBUyxDQUFDLDhCQUE4QjtBQUFBLEVBQ3pDO0FBQ0Q7QUFFQSxJQUFPLHNCQUFROyIsCiAgIm5hbWVzIjogW10KfQo=

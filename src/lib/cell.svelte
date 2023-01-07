@@ -1,17 +1,28 @@
 <script>
   import "../app.css";
-  import Mathfield from "$lib/mathfield.svelte";
+  import MathInput from "$lib/mathinput.svelte";
+  import MathField from "$lib/mathfield.svelte";
+  export let alpha;
   import NaturalLanguageInput from "$lib/natural-language-input.svelte";
   let kindOfInput = "natural_language";
+  let result = "";
+  function handleEnter(event) {
+    const cell = event.detail.cell.trim();
+    if (cell === "") {
+      result = "";
+      return;
+    }
+    result = alpha.interpret(cell);
+  }
 </script>
 
 
 <div class="w-full">
   {#if kindOfInput === "natural_language"}
-    <NaturalLanguageInput/>
+    <NaturalLanguageInput on:message={handleEnter}/>
   {/if}
   {#if kindOfInput === "latex"}
-    <Mathfield/>
+    <MathInput on:message={handleEnter}/>
   {/if}
   <ul class="items-center text-sm font-medium text-gray-900 bg-white sm:flex mt-0.5">
     <li>
@@ -27,6 +38,7 @@
       </div>
     </li>
   </ul>
+  <MathField bind:value={result}></MathField>
 </div>
 
 
