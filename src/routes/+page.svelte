@@ -10,8 +10,8 @@
     <h1 class="text-3xl text-center">Alpha</h1>
     {#await instancePromise}
       <p>waiting...</p>
-    {:then module}
-      <Cell alpha={module}/>
+    {:then computeEngineAlpha}
+      <Cell computeEngineAlpha={computeEngineAlpha}/>
     {:catch error}
       <p style="color: red">{error.message}</p>
     {/await}

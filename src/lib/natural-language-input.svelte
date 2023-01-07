@@ -1,8 +1,12 @@
 <script>
   import "../app.css";
-  import { createEventDispatcher } from 'svelte';
+  import { createEventDispatcher, onMount } from "svelte";
+  import * as database from "$lib/database.js";
   const ENTER = 13;
   let cell = "";
+  onMount(() => {
+    cell = atob(database.retrieve("q", ""));
+  });
   const dispatch = createEventDispatcher();
   function onKeyDown(event) {
     if(event.keyCode === ENTER && event.shiftKey) {

@@ -1,9 +1,17 @@
 <script>
-  import { createEventDispatcher } from 'svelte';
+  import { createEventDispatcher, onMount } from "svelte";
   import * as mathlive from 'mathlive'
-  let mf;
+  import * as database from "$lib/database.js";
   const dispatch = createEventDispatcher();
   const ENTER = 13;
+  let mf;
+  onMount(() => updateInput(atob(database.retrieve("q", ""))));
+  function updateInput(value) {
+    if (mf !== undefined) {
+      mf.setValue(value);
+    }
+  }
+  onMount(() => updateInput());
   function onKeyDown(event) {
     if(event.keyCode === ENTER && event.shiftKey) {
       event.preventDefault();
